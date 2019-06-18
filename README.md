@@ -11,6 +11,15 @@
 5. [Run](#run)
 6. [Attributions](#attributions)
 
+## Prerequisites
+To use Tensorflow for Scala, you need to install the Protocol Buffers compiler (at least version 3).
+
+With **apt**: `apt-get install protobuf-compiler`
+
+With **brew**: `brew install protoc`
+
+Feel free to check this [link](http://platanios.org/tensorflow_scala/installation.html) for more information.
+
 ### Introduction <a name="introduction"></a>
 Anonymization allows you to blur face and plate to improve the privacy of each other.
 See an exemple below of an image presenting several cars and faces before and after anonymization.
