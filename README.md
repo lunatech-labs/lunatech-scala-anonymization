@@ -46,6 +46,8 @@ Inside the root folder, use `sbt assembly`.
 ## Run <a name="run"></a>
 Once you have built your jar, use `java -jar <name_of_your_jar> <options>`
 
+Otherwise, if you want to test quickly, in the root folder, you can use `sbt "run --input <inputPath> --output <outputPath>"
+`
 ## Attributions <a name="attributions"></a>
 As said in the [initial python project](https://github.com/understand-ai/anonymizer):
 
