@@ -12,6 +12,13 @@
 6. [Attributions](#attributions)
 
 ## Prerequisites
+#### 1. Download models
+Due to the weight of the models, these are stored using git-lfs.
+
+In the root folder, use `git lfs pull` to download both models.
+
+If you don't have  `git lfs` installed, you can check the [official documentation](https://git-lfs.github.com/).
+#### 2. Protocol Buffers compiler
 To use Tensorflow for Scala, you need to install the Protocol Buffers compiler (at least version 3).
 
 With **apt**: `apt-get install protobuf-compiler`
