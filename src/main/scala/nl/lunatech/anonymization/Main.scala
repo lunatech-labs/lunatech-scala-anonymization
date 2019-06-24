@@ -57,12 +57,14 @@ object Main extends App {
             val filter = new FileFilter() {
                 def accept(file: File): Boolean = { config.imageExtensions.exists( extension => file.getName.toLowerCase.endsWith(extension)) }
             }
-            val images = new File(config.inputPath).listFiles(filter)
-
-            val obfuscator = new Obfuscator(kernel_size = 21, sigma = 2, box_kernel_size = 9)
-            val detectors = Vector(new Detector("FACE", config.faceThreshold), new Detector("PLATE", config.plateThreshold))
-
-            new Anonymizer(detectors, obfuscator).anonymizeImages(images, new File(config.outputPath))
+            Option(new File(config.inputPath).listFiles(filter)) match {
+                case Some(images) => {
+                    val obfuscator = new Obfuscator(kernel_size = 65, sigma = 3, box_kernel_size = 19)
+                    val detectors = Vector(new Detector("FACE", config.faceThreshold), new Detector("PLATE", config.plateThreshold))
+                    new Anonymizer(detectors, obfuscator).anonymizeImages(images, new File(config.outputPath))
+                }
+                case None => println("Error with your input Path")
+            }
         case _ =>  // parser1 will display error message
     }
 }
