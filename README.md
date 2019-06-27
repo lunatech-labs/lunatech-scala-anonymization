@@ -13,11 +13,17 @@
 
 ## Prerequisites
 #### 1. Download models
-Due to the weight of the models, these are stored using git-lfs.
+You have two solutions to download models:
 
-In the root folder, use `git lfs pull` to download both models.
+- Download pre-trained models from Google drive 
+    - [face.pb](https://docs.google.com/uc?export=download&id=1CwChAYxJo3mON6rcvXsl82FMSKj82vxF)
+    - [plate.pb](https://docs.google.com/uc?export=download&id=1Fls9FYlQdRlLAtw-GVS_ie1oQUYmci9g)
+    
+- Use your own models
 
-If you don't have  `git lfs` installed, you can check the [official documentation](https://git-lfs.github.com/).
+**You have to put both models in the folder** */src/main/resources/models* with the following names:
+- **face.pb**: detection model for face
+- **plate.pb**: detection model for plate
 #### 2. Protocol Buffers compiler
 To use Tensorflow for Scala, you need to install the Protocol Buffers compiler (at least version 3).
 
