@@ -60,6 +60,9 @@ For the documentation, please use: `--help`.
 | `--image-extensions`   | Comma-separated list of file types that will be anonymized (e.g. jpg, png)         |           |
 | `--face-threshold`     | Detection confidence needed to anonymize a detected face. Must be in [0.001, 1.0]  |           |
 | `--plate-threshold`    | Detection confidence needed to anonymize a license plate. Must be in [0.001, 1.0]  |           |
+| `--kernel-size`        | Size of the gaussian kernel. Must be odd                                           |           |
+| `--sigma`              | Standard deviation.                                                                |           |
+| `--box-kernel-size`    | Size of the kernel used to smooth transitions. Must be odd                         |           |
 
 
 ## Build <a name="build"></a>

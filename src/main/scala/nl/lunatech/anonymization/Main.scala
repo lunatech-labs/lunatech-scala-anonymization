@@ -9,7 +9,7 @@ object Main extends App {
     val parser1 = {
         import builder._
         OParser.sequence(
-            head("Anonymize faces and license plates in a series of images."),
+            head("Anonymize faces and license plates in a sequence of images."),
             programName("anonymization"),
             help("help").text("prints this usage text"),
 
@@ -47,7 +47,34 @@ object Main extends App {
                 .validate( x =>
                     if (x >= 0.001 && x <= 1.0) success
                     else failure("Value <plate-threshold> must be > 0.001 and < 1.0"))
-                .text("[Optional] Detection confidence needed to anonymize a license plate. Must be in [0.001, 1.0].")
+                .text("[Optional] Detection confidence needed to anonymize a license plate. Must be in [0.001, 1.0]."),
+
+            opt[Int]("kernel-size")
+                .optional()
+                .valueName("21")
+                .action((x, c) => c.copy(kernelSize = x))
+                .validate( x =>
+                    if (x > 0 && (x % 2 != 0)) success
+                    else failure("Value <kernel-size> must be > 0 and odd"))
+                .text("[Optional] Size of the gaussian kernel. Higher values of the first parameter lead to slower transitions while blurring."),
+
+            opt[Int]("sigma")
+                .optional()
+                .valueName("2")
+                .action((x, c) => c.copy(sigma = x))
+                .validate( x =>
+                    if (x > 0) success
+                    else failure("Value <sigma> must be > 0"))
+                .text("[Optional] Standard deviation."),
+
+            opt[Int]("box-kernel-size")
+                .optional()
+                .valueName("9")
+                .action((x, c) => c.copy(boxKernelSize = x))
+                .validate( x =>
+                    if (x > 0 && (x % 2 != 0)) success
+                    else failure("Value <box-kernel-size> must be > 0 and odd"))
+                .text("[Optional] To make the transition from blurred areas to the non-blurred image smoother another kernel is used. Larger values lead to a smoother transition.                        'transition.")
         )
     }
 
@@ -59,7 +86,7 @@ object Main extends App {
             }
             Option(new File(config.inputPath).listFiles(filter)) match {
                 case Some(images) => {
-                    val obfuscator = new Obfuscator(kernel_size = 65, sigma = 3, box_kernel_size = 19)
+                    val obfuscator = new Obfuscator(kernel_size = config.kernelSize, sigma = config.sigma, box_kernel_size = config.boxKernelSize)
                     val detectors = Vector(new Detector("FACE", config.faceThreshold), new Detector("PLATE", config.plateThreshold))
                     new Anonymizer(detectors, obfuscator).anonymizeImages(images, new File(config.outputPath))
                 }
